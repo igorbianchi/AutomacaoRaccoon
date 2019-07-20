@@ -11,7 +11,7 @@ function getData(){
   // regex para buscar o preço do site
   const REGEX = new RegExp(/"price":(.*?),"category"/);
   
-  const EMAIL = "atomacao@raccoon.ag"
+  const EMAIL = "automacao@raccoon.ag"
   const ASSUNTO = "Processo Seletivo - Produtos com preços incompatíveis";
   const CODIGOJS = "https://github.com/igorbianchi/AutomacaoRaccoon/blob/master/script.js"
   
