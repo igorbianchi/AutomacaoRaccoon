@@ -11,8 +11,9 @@ function getData(){
   // regex para buscar o preço do site
   const REGEX = new RegExp(/"price":(.*?),"category"/);
   
-  const EMAIL = "igorgbianchi@gmail.com"
+  const EMAIL = "atomacao@raccoon.ag"
   const ASSUNTO = "Processo Seletivo - Produtos com preços incompatíveis";
+  const CODIGOJS = "https://github.com/igorbianchi/AutomacaoRaccoon/blob/master/script.js"
   
   var produtos = [];
   var precos_controle = [];
@@ -32,11 +33,8 @@ function getData(){
   }
   
   if(produtos.length > 0){ //se teve um produto que o valor foi dsiferente entre site e planilha, aciona a função que envia o email
-    var mensagem = sendEmail(produtos, precos_controle, precos_site, EMAIL, ASSUNTO);
-  }
-  
-  Logger.log(mensagem);
-    
+    var mensagem = sendEmail(produtos, precos_controle, precos_site, EMAIL, ASSUNTO, CODIGOJS);
+  }    
 }
 
 // função para atualizar valores na planilha
@@ -55,12 +53,11 @@ function setSheet(sheet, matrix, LINK, PRECO_SITE, linha, REGEX){
 }
 
 //função para criar a mensagem e enviar para o email
-function sendEmail(produtos, precos_controle, precos_site, EMAIL, ASSUNTO){
+function sendEmail(produtos, precos_controle, precos_site, EMAIL, ASSUNTO, CODIGOJS){
   var mensagem = "Produtos com valores diferentes entre a planilha e o site:\n";
   for(var i = 0; i < produtos.length; i++){
      mensagem = mensagem.concat(produtos[i], ", Preço de controle: R$ ", precos_controle[i], ", Preço no site: R$ ", precos_site[i], "\n");
   }
+  mensagem = mensagem.concat("\nLink para o código do script: ", CODIGOJS, "\n");
   MailApp.sendEmail(EMAIL, ASSUNTO, mensagem);
-  return mensagem;
-}
-  
+}  
